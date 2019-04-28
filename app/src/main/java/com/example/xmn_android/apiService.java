@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface RequestService {
-    @GET("products")
-    Call<List<Product>> getAllProducts();
+public interface apiService {
+    @GET("api/products")
+    Call<List<Product>> listProduct();
 }

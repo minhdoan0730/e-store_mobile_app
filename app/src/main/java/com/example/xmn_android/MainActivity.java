@@ -33,21 +33,24 @@ public class MainActivity extends AppCompatActivity {
         progressDoalog.show();
 
         /*Create handle for the RetrofitInstance interface*/
-        RequestService service = RetrofitClientAPI.getRetrofitInstance().create(RequestService.class);
-        Call<List<Product>> call = service.getAllProducts();
+        apiService service = RetrofitClientAPI.getRetrofitInstance().create(apiService.class);
+        Call<List<Product>> call = service.listProduct();
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 progressDoalog.dismiss();
-                System.out.print(response.body());
-                generateProductDataList(response.body());
+                List<Product> responseData = response.body();
+                for (int i = 0; i< responseData.size() ; i++) {
+                    mProductList.add(responseData.get(i));
+                }
+                generateProductDataList(mProductList);
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 progressDoalog.dismiss();
                 generateProductDataList(mProductList);
-                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
