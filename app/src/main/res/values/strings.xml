@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">xmn_android</string>
+    <string name="app_name">Chocola Store</string>
+    <string name="backdrop_title">EVERYTHING YOU NEED</string>
+    <string name="backdrop_subtitle">in one place</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>
