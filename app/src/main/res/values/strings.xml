@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Chocola Store</string>
+    <string name="action_settings">Settings</string>
     <string name="backdrop_title">EVERYTHING YOU NEED</string>
     <string name="backdrop_subtitle">in one place</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="search_hint">Search..</string>
 </resources>
