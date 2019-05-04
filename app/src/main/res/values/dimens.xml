@@ -11,4 +11,11 @@
     <dimen name="item_offset">10dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="product_title_padding">10dp</dimen>
+    <dimen name="product_title">15dp</dimen>
+    <dimen name="product_price_padding_bottom">5dp</dimen>
+    <dimen name="product_price">12dp</dimen>
+    <dimen name="ic_album_overflow_width">30dp</dimen>
+    <dimen name="ic_album_overflow_height">40dp</dimen>
+    <dimen name="ic_album_overflow_margin_top">10dp</dimen>
 </resources>

@@ -5,8 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -25,10 +28,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView txtProductName;
+        public ImageView imgProductThumbnail;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             txtProductName = (TextView) itemView.findViewById(R.id.txt_product_name);
+            imgProductThumbnail = (ImageView) itemView.findViewById(R.id.img_product_thumbnail);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,6 +61,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public void onBindViewHolder(ProductAdapter.MyViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.txtProductName.setText(product.getName());
+
+        String imgURL = RetrofitClientAPI.getSeverBaseURL() + product.getImageThumbnailUrl();
+        Glide.with(holder.imgProductThumbnail.getContext())
+                .load(imgURL).into(holder.imgProductThumbnail);
     }
 
     @Override

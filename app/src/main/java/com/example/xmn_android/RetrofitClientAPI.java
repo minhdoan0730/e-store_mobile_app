@@ -14,6 +14,10 @@ public class RetrofitClientAPI {
     private static Retrofit retrofit;
     private static final String BASE_URL = "http://172.17.100.2:5000/";
 
+    public static String getSeverBaseURL () {
+        return BASE_URL;
+    }
+
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
