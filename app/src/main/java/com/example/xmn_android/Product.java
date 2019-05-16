@@ -7,8 +7,10 @@ public class Product {
     private String name;
     @SerializedName("id")
     private Integer id;
+    @SerializedName("img_url")
+    private String img_url;
 
-    public Product(String name) {
+    public Product(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -19,5 +21,9 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageThumbnailUrl() {
+        return img_url;
     }
 }
