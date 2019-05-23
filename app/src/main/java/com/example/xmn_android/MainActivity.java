@@ -5,26 +5,32 @@ import android.os.Bundle;
 import android.graphics.Rect;
 import android.content.res.Resources;
 
+import android.app.ProgressDialog;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.app.ProgressDialog;
-import android.widget.ImageView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private ProductAdapter mAdapter;
     ProgressDialog progressDoalog;
+    private TextView mCartCounter;
+    private int badgeCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         progressDoalog.setMessage("Loading....");
         progressDoalog.show();
 
-        /*Create handle for the RetrofitInstance interface*/
+        /* Homepage: Loading product to homepage */
         apiService service = RetrofitClientAPI.getRetrofitInstance().create(apiService.class);
         Call<List<Product>> call = service.listProduct();
         call.enqueue(new Callback<List<Product>>() {
@@ -95,8 +103,13 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        RelativeLayout badgeLayout = (RelativeLayout) menu.findItem(R.id.shopping_cart).getActionView();
+
+        mCartCounter = (TextView) badgeLayout.findViewById(R.id.cart_badge);
+        setupBadge();
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -104,7 +117,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.search:{
                 return true;
             }
-            case R.id.cart:{
+            case R.id.shopping_cart:{
                 return true;
             }
             default:{
@@ -115,13 +128,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
-        }
-        else {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else if (drawer.isDrawerOpen(GravityCompat.END)) {
+                drawer.closeDrawer(GravityCompat.END);
+            }
+            else {
                 super.onBackPressed();
         }
     }
@@ -186,5 +199,20 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+    private void setupBadge() {
+        if (mCartCounter != null) {
+            if (badgeCount == 0) {
+                if (mCartCounter.getVisibility() != View.GONE) {
+                    mCartCounter.setVisibility(View.GONE);
+                }
+            } else {
+                mCartCounter.setText(String.valueOf(Math.min(badgeCount, 99)));
+                if (mCartCounter.getVisibility() != View.VISIBLE) {
+                    mCartCounter.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 }

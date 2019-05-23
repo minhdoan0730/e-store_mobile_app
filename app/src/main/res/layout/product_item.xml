@@ -40,7 +40,6 @@
             android:paddingLeft="@dimen/product_title_padding"
             android:paddingRight="@dimen/product_title_padding"
             android:textSize="@dimen/product_price"
-            android:text="12$"
             android:textColor="@color/colorPrimary"/>
 
         <!--<ImageButton-->
@@ -54,12 +53,13 @@
             <!--android:scaleType="fitXY"-->
             <!--/>-->
         <ImageButton
-            android:id="@+id/overflow"
+            android:id="@+id/btn_add_to_cart"
             android:layout_width="@dimen/ic_album_overflow_width"
             android:layout_height="@dimen/ic_album_overflow_height"
             android:layout_alignParentRight="true"
             android:layout_below="@id/img_product_thumbnail"
             android:layout_marginTop="@dimen/ic_album_overflow_margin_top"
+            android:layout_marginRight="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_cart" />
     </RelativeLayout>

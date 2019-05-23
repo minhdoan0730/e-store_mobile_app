@@ -11,17 +11,15 @@
         app:queryBackground="@android:color/transparent"
         app:actionViewClass="android.widget.SearchView" />
 
-    <item android:id="@+id/cart"
-        android:title="Cart"
+    <!--<item android:id="@+id/cart"-->
+        <!--android:title="Cart"-->
+        <!--android:icon="@drawable/cart_icon"-->
+        <!--app:showAsAction="always" />-->
+
+    <item
+        android:id="@+id/shopping_cart"
         android:icon="@drawable/cart_icon"
-        app:showAsAction="always" />
-    <!--<android.support.v7.widget.SearchView-->
-        <!--android:id="@+id/search_view"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--app:queryBackground="@android:color/transparent"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="end"-->
-        <!--android:gravity="center_vertical"-->
-        <!--app:queryHint="Search" />-->
+        android:title="Cart"
+        app:actionLayout="@layout/cart_and_badge"
+        app:showAsAction="always"/>
 </menu>
