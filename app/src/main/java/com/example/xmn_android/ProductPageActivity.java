@@ -47,7 +47,6 @@ public class ProductPageActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<Product> call, Throwable t) {
-                    dialog.dismiss();
                     Toast.makeText(ProductPageActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
