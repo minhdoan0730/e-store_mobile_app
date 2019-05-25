@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void generateProductDataList(List<Product> productList) {
-        recyclerView = (RecyclerView) findViewById(R.id.rvHomepageProduct);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_homepage);
         mAdapter = new ProductAdapter(this, mProductList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
