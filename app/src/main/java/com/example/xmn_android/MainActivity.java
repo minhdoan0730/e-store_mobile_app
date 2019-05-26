@@ -1,5 +1,6 @@
 package com.example.xmn_android;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.graphics.Rect;
@@ -31,6 +32,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import io.paperdb.Paper;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,13 +44,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ProductAdapter.AdapterCallback {
     private List<Product> mProductList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProductAdapter mAdapter;
     ProgressDialog progressDoalog;
     private TextView mCartCounter;
-    private int badgeCount = 0;
+    private int badgeCount;
+    private adapterCallback mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Paper.init(this);
 
         initCollapsingToolbar();
 
@@ -165,7 +170,7 @@ public class MainActivity extends AppCompatActivity
 
     private void generateProductDataList(List<Product> productList) {
         recyclerView = (RecyclerView) findViewById(R.id.rv_homepage);
-        mAdapter = new ProductAdapter(this, mProductList);
+        mAdapter = new ProductAdapter(MainActivity.this, mProductList, this);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -203,16 +208,23 @@ public class MainActivity extends AppCompatActivity
 
     private void setupBadge() {
         if (mCartCounter != null) {
+            badgeCount = Paper.book().read("shopping_cart", 0);
             if (badgeCount == 0) {
                 if (mCartCounter.getVisibility() != View.GONE) {
                     mCartCounter.setVisibility(View.GONE);
                 }
             } else {
+                Toast.makeText(this, "New value when callback" + badgeCount, Toast.LENGTH_SHORT).show();
                 mCartCounter.setText(String.valueOf(Math.min(badgeCount, 99)));
                 if (mCartCounter.getVisibility() != View.VISIBLE) {
                     mCartCounter.setVisibility(View.VISIBLE);
                 }
             }
         }
+    }
+
+    @Override
+    public void updateBadgeCount() {
+        setupBadge();
     }
 }

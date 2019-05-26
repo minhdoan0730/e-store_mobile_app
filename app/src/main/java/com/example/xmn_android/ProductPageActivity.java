@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import retrofit2.Response;
 
 public class ProductPageActivity extends BaseActivity {
     private Product mProduct = new Product();
+    private String nameSearchRecommend = "";
     private ProgressDialog dialog;
     private List<Product> mRecommendedProducts  = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -36,7 +38,7 @@ public class ProductPageActivity extends BaseActivity {
         Integer productID = intent.getIntExtra("product_id", 0);
         dialog = getProgressDialog();
         loadingProductDetail(productID);
-        getRecommendedProducts();
+        getRecommendedProducts(nameSearchRecommend);
     }
 
     private void loadingProductDetail(Integer productID) {
@@ -51,9 +53,11 @@ public class ProductPageActivity extends BaseActivity {
                     try {
                         Glide.with(ProductPageActivity.this).load(productImg).into(
                                 (ImageView) findViewById(R.id.product_img_cover));
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    nameSearchRecommend =  mProduct.getName();
                 }
 
                 @Override
@@ -64,10 +68,8 @@ public class ProductPageActivity extends BaseActivity {
         }
     };
 
-    private void getRecommendedProducts() {
-        /* Homepage: Loading product to homepage */
-
-        Call<List<Product>> call = service.recommendProducts(mProduct.getName());
+    private void getRecommendedProducts(String productName) {
+        Call<List<Product>> call = service.recommendProducts(productName);
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -86,9 +88,9 @@ public class ProductPageActivity extends BaseActivity {
         });
     }
 
-    private void loadingRecommendedProducts(List<Product> RecommendedProducts) {
+    private void loadingRecommendedProducts(List<Product> recommendedProducts) {
         recyclerView = (RecyclerView) findViewById(R.id.rv_product_items);
-        mAdapter = new ProductAdapter(this, RecommendedProducts);
+        mAdapter = new ProductAdapter(ProductPageActivity.this, recommendedProducts, this);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(mLayoutManager);

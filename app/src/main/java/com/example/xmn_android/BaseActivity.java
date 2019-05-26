@@ -20,14 +20,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
+
+import io.paperdb.Paper;
 
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements ProductAdapter.AdapterCallback {
     protected TextView mCartCounter;
-    protected int badgeCount = 10;
+    protected int badgeCount;
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected Toolbar mToolbar;
+    protected adapterCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +189,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void setupBadge() {
         if (mCartCounter != null) {
+            badgeCount = Paper.book().read("shopping_cart", 0);
             if (badgeCount == 0) {
                 if (mCartCounter.getVisibility() != View.GONE) {
                     mCartCounter.setVisibility(View.GONE);
@@ -205,5 +210,10 @@ public class BaseActivity extends AppCompatActivity {
         dialog.setMessage("Loading....");
         dialog.setCancelable(false);
         return dialog;
+    }
+
+    @Override
+    public  void updateBadgeCount() {
+        setupBadge();
     }
 }

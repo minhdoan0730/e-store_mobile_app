@@ -16,16 +16,22 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import javax.security.auth.callback.Callback;
+
+import io.paperdb.Paper;
+
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
 
     private List<Product> productList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private AdapterCallback mListener;
 
-    public ProductAdapter(Context context, List<Product> productList) {
+    public ProductAdapter(Context context, List<Product> productList, AdapterCallback mListener) {
         this.productList = productList;
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.mListener = mListener;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -40,29 +46,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             imgProductThumbnail = (ImageView) itemView.findViewById(R.id.img_product_thumbnail);
             txtProductPrice = (TextView) itemView.findViewById(R.id.txt_product_price);
             btnAddCart = (ImageButton) itemView.findViewById(R.id.btn_add_to_cart);
-
-//            imgProductThumbnail.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(mContext, ProductPageActivity.class);
-//                    mContext.startActivity(intent);
-//                }
-//            });
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(mContext,txtProductName.getText(),Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(mContext, ProductPageActivity.class);
-//                    mContext.startActivity(intent);
-//
-//                }
-//            });
-//            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View v) {
-//                    Toast.makeText(mContext,"Long item clicked " + txtProductName.getText(), Toast.LENGTH_SHORT).show();
-//                    return true;
-//                }
-//            });
         }
     }
 
@@ -73,18 +56,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(ProductAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final ProductAdapter.MyViewHolder holder, int position) {
         final Product product = productList.get(position);
+
         holder.txtProductName.setText(product.getName());
         holder.txtProductPrice.setText(product.getPrice());
         String imgURL = RetrofitClientAPI.getSeverBaseURL() + product.getImageThumbnailUrl();
         Glide.with(holder.imgProductThumbnail.getContext())
                 .load(imgURL).into(holder.imgProductThumbnail);
-
         holder.btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "HAHAHAHAA", Toast.LENGTH_SHORT).show();
+                int oldVal = Paper.book().read("shopping_cart", 0);
+                int newVal = oldVal + 1;
+                Paper.book().write("shopping_cart", newVal);
+                mListener.updateBadgeCount();
+                try {
+                    mListener.updateBadgeCount();
+                } catch (ClassCastException e) {
+                    Toast.makeText(mContext,"Add to cart doesn't success!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         holder.imgProductThumbnail.setOnClickListener(new View.OnClickListener() {
@@ -110,5 +101,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    public static interface AdapterCallback {
+        void updateBadgeCount();
     }
 }

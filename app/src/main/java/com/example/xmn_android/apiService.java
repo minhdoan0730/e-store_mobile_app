@@ -12,8 +12,8 @@ public interface apiService {
     Call<List<Product>> listProduct();
 
     @GET("api/products/{product_id}")
-    Call<Product> getProductDetail(@Path("product_id") Integer product_id);
+    Call<Product> getProductDetail(@Path("product_id") Integer productID);
 
     @GET("api/recommend")
-    Call<List<Product>> recommendProducts(@Query("search_key") String product_name);
+    Call<List<Product>> recommendProducts(@Query("search_key") String productName);
 }
