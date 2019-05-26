@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity
     ProgressDialog progressDoalog;
     private TextView mCartCounter;
     private int badgeCount;
-    private adapterCallback mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +58,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Paper.init(this);
 
         initCollapsingToolbar();
+        Paper.init(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -208,13 +207,13 @@ public class MainActivity extends AppCompatActivity
 
     private void setupBadge() {
         if (mCartCounter != null) {
-            badgeCount = Paper.book().read("shopping_cart", 0);
+            badgeCount = Paper.book().read("badge_count", 0);
+            Toast.makeText(this,"Update to haha" + badgeCount, Toast.LENGTH_SHORT).show();
             if (badgeCount == 0) {
                 if (mCartCounter.getVisibility() != View.GONE) {
                     mCartCounter.setVisibility(View.GONE);
                 }
             } else {
-                Toast.makeText(this, "New value when callback" + badgeCount, Toast.LENGTH_SHORT).show();
                 mCartCounter.setText(String.valueOf(Math.min(badgeCount, 99)));
                 if (mCartCounter.getVisibility() != View.VISIBLE) {
                     mCartCounter.setVisibility(View.VISIBLE);

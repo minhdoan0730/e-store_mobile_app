@@ -31,7 +31,6 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected Toolbar mToolbar;
-    protected adapterCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,8 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        Paper.init(this);
     }
 
     @Override
@@ -189,7 +190,7 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
 
     protected void setupBadge() {
         if (mCartCounter != null) {
-            badgeCount = Paper.book().read("shopping_cart", 0);
+            badgeCount = Paper.book().read("badge_count", 0);
             if (badgeCount == 0) {
                 if (mCartCounter.getVisibility() != View.GONE) {
                     mCartCounter.setVisibility(View.GONE);

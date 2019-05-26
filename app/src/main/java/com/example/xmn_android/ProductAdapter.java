@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.security.auth.callback.Callback;
@@ -67,15 +68,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         holder.btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int oldVal = Paper.book().read("shopping_cart", 0);
-                int newVal = oldVal + 1;
-                Paper.book().write("shopping_cart", newVal);
-                mListener.updateBadgeCount();
-                try {
-                    mListener.updateBadgeCount();
-                } catch (ClassCastException e) {
+                ShoppingCartEntry shoppingItem = new ShoppingCartEntry(product, 1);
+                Boolean isAdded = shoppingItem.addToShoppingCart();
+                if (isAdded == true) {
+                    try {
+                        mListener.updateBadgeCount();
+                        ArrayList<ShoppingCartEntry> shoppingLine = Paper.book().read("shopping_line");
+                        int badge = Paper.book().read("badge_count", 0 );
+                        Toast.makeText(mContext, "Value read" + String.valueOf(badge), Toast.LENGTH_SHORT).show();
+                    } catch (ClassCastException e) {
+                        Toast.makeText(mContext,"Update to cart doesn't success!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
                     Toast.makeText(mContext,"Add to cart doesn't success!", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
         holder.imgProductThumbnail.setOnClickListener(new View.OnClickListener() {
