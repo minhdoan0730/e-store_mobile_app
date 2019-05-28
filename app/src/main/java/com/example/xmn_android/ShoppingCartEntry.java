@@ -37,7 +37,7 @@ public class ShoppingCartEntry {
         if (storedList.isEmpty() == false) {
             for (ShoppingCartEntry item: storedList) {
                 if (item.getProduct().getID() == this.getProduct().getID()) {
-                    item.setQuantity(item.getQuantity() + 1);
+                    item.setQuantity(item.getQuantity() + this.getQuantity());
                     Paper.book().write("shopping_line", storedList);
                     ShoppingCartHelper.saveBadgeCount();
                     return true;

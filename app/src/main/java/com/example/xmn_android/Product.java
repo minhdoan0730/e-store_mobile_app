@@ -38,9 +38,17 @@ public class Product {
         return img_url;
     }
 
-    public String getPrice() {
+    public Float getSalePrice() {
         Float price = (regular_price - discount_price);
-        return price.toString() + '$';
+        return price;
+    }
+
+    public Float getDiscount() {
+        return discount_price;
+    }
+
+    public Float getRegularPrice() {
+        return regular_price;
     }
 
     public void setName(String name) {

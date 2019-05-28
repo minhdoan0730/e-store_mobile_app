@@ -8,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 import android.widget.ImageView;
+import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 
@@ -20,13 +22,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductPageActivity extends BaseActivity {
+public class ProductPageActivity extends BaseActivity implements ProductAdapter.AdapterCallback {
     private Product mProduct = new Product();
     private String nameSearchRecommend = "";
     private ProgressDialog dialog;
     private List<Product> mRecommendedProducts  = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProductAdapter mAdapter;
+    private Button btnBuyNow;
     apiService service = RetrofitClientAPI.getRetrofitInstance().create(apiService.class);
 
     @Override
@@ -34,11 +37,20 @@ public class ProductPageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
         Intent intent = getIntent();
+        btnBuyNow = (Button) findViewById(R.id.btn_buy_now);
 
         Integer productID = intent.getIntExtra("product_id", 0);
         dialog = getProgressDialog();
         loadingProductDetail(productID);
         getRecommendedProducts(nameSearchRecommend);
+
+        btnBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+                getApplicationContext().startActivity(intent);
+            }
+        });
     }
 
     private void loadingProductDetail(Integer productID) {

@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/img_product_thumbnail"
+            android:inputType="textMultiLine"
             android:paddingLeft="@dimen/product_title_padding"
             android:paddingRight="@dimen/product_title_padding"
             android:paddingTop="@dimen/product_title_padding"

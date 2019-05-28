@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ProductAdapter.AdapterCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, ProductAdapter.AdapterCallback{
     private List<Product> mProductList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProductAdapter mAdapter;
@@ -208,7 +208,6 @@ public class MainActivity extends AppCompatActivity
     private void setupBadge() {
         if (mCartCounter != null) {
             badgeCount = Paper.book().read("badge_count", 0);
-            Toast.makeText(this,"Update to haha" + badgeCount, Toast.LENGTH_SHORT).show();
             if (badgeCount == 0) {
                 if (mCartCounter.getVisibility() != View.GONE) {
                     mCartCounter.setVisibility(View.GONE);

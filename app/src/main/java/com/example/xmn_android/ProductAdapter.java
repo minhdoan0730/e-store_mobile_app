@@ -61,7 +61,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         final Product product = productList.get(position);
 
         holder.txtProductName.setText(product.getName());
-        holder.txtProductPrice.setText(product.getPrice());
+        holder.txtProductPrice.setText(product.getSalePrice().toString());
         String imgURL = RetrofitClientAPI.getSeverBaseURL() + product.getImageThumbnailUrl();
         Glide.with(holder.imgProductThumbnail.getContext())
                 .load(imgURL).into(holder.imgProductThumbnail);
@@ -75,13 +75,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                         mListener.updateBadgeCount();
                         ArrayList<ShoppingCartEntry> shoppingLine = Paper.book().read("shopping_line");
                         int badge = Paper.book().read("badge_count", 0 );
-                        Toast.makeText(mContext, "Value read" + String.valueOf(badge), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Add to cart successfully, quantity in your cart is " + String.valueOf(badge), Toast.LENGTH_SHORT).show();
                     } catch (ClassCastException e) {
                         Toast.makeText(mContext,"Update to cart doesn't success!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(mContext,"Add to cart doesn't success!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"Add to cart doesn't successfully!", Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -2,6 +2,7 @@ package com.example.xmn_android;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.content.Intent;
 import android.content.res.Configuration;
 
 import android.view.View;
@@ -25,7 +26,7 @@ import android.widget.Toast;
 import io.paperdb.Paper;
 
 
-public class BaseActivity extends AppCompatActivity implements ProductAdapter.AdapterCallback {
+public class BaseActivity extends AppCompatActivity implements ProductAdapter.AdapterCallback{
     protected TextView mCartCounter;
     protected int badgeCount;
     protected DrawerLayout mDrawerLayout;
@@ -105,7 +106,7 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.nav_login_item:
-//                            startActivity(new Intent(BaseActivity.this, MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                         case R.id.nav_signup_item:
 //                            createBackStack(new Intent(BaseActivity.this,
