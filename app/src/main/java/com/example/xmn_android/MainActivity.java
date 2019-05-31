@@ -1,77 +1,38 @@
 package com.example.xmn_android;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.graphics.Rect;
-import android.content.res.Resources;
-
 import android.app.ProgressDialog;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Menu;
+import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
-import io.paperdb.Paper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ProductAdapter.AdapterCallback{
+public class MainActivity extends BaseActivity {
     private List<Product> mProductList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProductAdapter mAdapter;
     ProgressDialog progressDoalog;
-    private TextView mCartCounter;
-    private int badgeCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         initCollapsingToolbar();
-        Paper.init(this);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        progressDoalog = new ProgressDialog(MainActivity.this);
-        progressDoalog.setMessage("Loading....");
+        progressDoalog = getProgressDialog();
         progressDoalog.show();
 
         /* Homepage: Loading product to homepage */
@@ -101,70 +62,6 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        RelativeLayout badgeLayout = (RelativeLayout) menu.findItem(R.id.shopping_cart).getActionView();
-
-        mCartCounter = (TextView) badgeLayout.findViewById(R.id.cart_badge);
-        setupBadge();
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (item.getItemId()){
-            case R.id.search:{
-                return true;
-            }
-            case R.id.shopping_cart:{
-                return true;
-            }
-            default:{
-                return super.onOptionsItemSelected(item);
-            }
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else if (drawer.isDrawerOpen(GravityCompat.END)) {
-                drawer.closeDrawer(GravityCompat.END);
-            }
-            else {
-                super.onBackPressed();
-        }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_login_item) {
-            // Handle the camera action
-        } else if (id == R.id.nav_signup_item) {
-
-        } else if (id == R.id.nav_service_item) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-        else {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void generateProductDataList(List<Product> productList) {
@@ -203,26 +100,5 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-    }
-
-    private void setupBadge() {
-        if (mCartCounter != null) {
-            badgeCount = Paper.book().read("badge_count", 0);
-            if (badgeCount == 0) {
-                if (mCartCounter.getVisibility() != View.GONE) {
-                    mCartCounter.setVisibility(View.GONE);
-                }
-            } else {
-                mCartCounter.setText(String.valueOf(Math.min(badgeCount, 99)));
-                if (mCartCounter.getVisibility() != View.VISIBLE) {
-                    mCartCounter.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void updateBadgeCount() {
-        setupBadge();
     }
 }

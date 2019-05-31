@@ -44,7 +44,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             imgProductThumbnail = (ImageView) itemView.findViewById(R.id.img_checkout_product_thumbnail);
             txtProductPrice = (TextView) itemView.findViewById(R.id.txt_checkout_product_price);
             txtProductQty = (TextView) itemView.findViewById(R.id.txt_checkout_qty);
-            txtSubtotal = (TextView) itemView.findViewById(R.id.txt_checkout_subtotal);
+//            txtSubtotal = (TextView) itemView.findViewById(R.id.txt_checkout_subtotal);
         }
     }
 
@@ -63,7 +63,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         holder.txtProductQty.setText("x " + String.valueOf(cartEntry.getQuantity()));
 
         Float subTotal = cartEntry.getQuantity() * unitPrice;
-        holder.txtSubtotal.setText(subTotal.toString()+ '$');
+//        holder.txtSubtotal.setText(subTotal.toString()+ '$');
 
         String imgURL = RetrofitClientAPI.getSeverBaseURL() + cartEntry.getProduct().getImageThumbnailUrl();
         Glide.with(holder.imgProductThumbnail.getContext())

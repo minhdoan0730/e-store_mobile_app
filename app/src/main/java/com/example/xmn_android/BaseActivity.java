@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 
@@ -23,7 +24,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class BaseActivity extends AppCompatActivity implements ProductAdapter.AdapterCallback{
@@ -32,6 +38,7 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected Toolbar mToolbar;
+    protected Boolean loginState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,12 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
         }
 
         Paper.init(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupNavDrawer();
     }
 
     @Override
@@ -91,6 +104,27 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        if (header != null){
+            navigationView.removeHeaderView(navigationView.getHeaderView(0));
+        }
+        navigationView.getMenu().setGroupVisible(0, false);
+        User user_token = Paper.book().read("user_info", new User());
+        if (user_token != null) {
+            final View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_authen);
+            navigationView.inflateMenu(R.menu.drawer_menu_authen);
+            Menu menu = navigationView.getMenu();
+            TextView txtUserName = (TextView) headerLayout.findViewById(R.id.txt_user_name);
+            TextView txtUserEmail = (TextView) headerLayout.findViewById(R.id.txt_user_email);
+            txtUserName.setText(user_token.getName());
+            txtUserName.setText(user_token.getEmail());
+        }
+        else {
+//            setupNavDrawerToMain();
+            navigationView.inflateHeaderView(R.layout.nav_header_main);
+            navigationView.inflateMenu(R.menu.drawer_menu);
+        }
+
         navigationView.setNavigationItemSelectedListener(navigationViewListener);
     }
 
@@ -98,6 +132,30 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private void setupNavDrawerToAuthen() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView.getHeaderView(0) != null){
+            navigationView.removeHeaderView(navigationView.getHeaderView(0));
+        }
+        navigationView.getMenu().setGroupVisible(0, false);
+
+        navigationView.inflateHeaderView(R.layout.nav_header_authen);
+        navigationView.inflateMenu(R.menu.drawer_menu_authen);
+        navigationView.setNavigationItemSelectedListener(navigationViewListener);
+    }
+
+    private void setupNavDrawerToMain() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView.getHeaderView(0) != null){
+            navigationView.removeHeaderView(navigationView.getHeaderView(0));
+        }
+        navigationView.getMenu().setGroupVisible(0, false);
+
+        navigationView.inflateHeaderView(R.layout.nav_header_main);
+        navigationView.inflateMenu(R.menu.drawer_menu);
+        navigationView.setNavigationItemSelectedListener(navigationViewListener);
     }
 
     private NavigationView.OnNavigationItemSelectedListener navigationViewListener =
@@ -109,16 +167,14 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                         case R.id.nav_signup_item:
-//                            createBackStack(new Intent(BaseActivity.this,
-//                                    GraphsActivity.class));
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            intent.putExtra("SIGNUP", 1);
+                            startActivity(intent);
                             break;
-                        case R.id.nav_service_item:
-//                            createBackStack(new Intent(BaseActivity.this,
-//                                    WeatherForecastActivity.class));
-                            break;
-                        case R.id.nav_send:
-//                            createBackStack(new Intent(BaseActivity.this,
-//                                    SettingsActivity.class));
+                        case R.id.nav_authen_logout_item:
+                            Paper.book().delete("user_token");
+                            Toast.makeText(getApplicationContext(), "Logout successfully!", Toast.LENGTH_SHORT).show();
+                            setupNavDrawerToMain();
                             break;
                     }
 
@@ -126,29 +182,6 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
                     return true;
                 }
             };
-
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_login_item) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_signup_item) {
-//
-//        } else if (id == R.id.nav_service_item) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-//        else {
-//
-//        }
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,10 +212,15 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else if (mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
-            mDrawerLayout.closeDrawer(GravityCompat.END);
+        if (mDrawerLayout != null) {
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            } else if (mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+                mDrawerLayout.closeDrawer(GravityCompat.END);
+            }
+            else {
+                super.onBackPressed();
+            }
         }
         else {
             super.onBackPressed();
@@ -218,4 +256,12 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     public  void updateBadgeCount() {
         setupBadge();
     }
+
+    protected Boolean isAuthen() {
+        int user_token = Paper.book().read("user_token", 0);
+        if (user_token != 0) {
+            return true;
+        }
+        return false;
+    };
 }

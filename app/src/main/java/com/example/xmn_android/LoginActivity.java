@@ -1,8 +1,16 @@
 package com.example.xmn_android;
 
+import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends BaseActivity {
 
@@ -11,21 +19,24 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.login_view_pager);
+        final TabItem tabLogin = findViewById(R.id.tab_login);
+        TabItem tabSignup = findViewById(R.id.tab_signup);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.login_view_pager);
+        FragmentManager fragmentManager = getFragmentManager();
 
-        LoginPageAdapter pageAdapter = new LoginPageAdapter(
+        LoginPageAdapter pageAdapter = new LoginPageAdapter(this,
                 getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setupWithViewPager(viewPager);
+
+        int tabIndex = getIntent().getIntExtra("SIGNUP", 0);
+        viewPager.setCurrentItem(tabIndex, false);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 1) {
-                    
-                } else {
 
-                }
             }
 
             @Override

@@ -21,21 +21,30 @@ public class Product {
     @SerializedName("description")
     private String description;
 
+    @SerializedName("categ_id")
+    private Integer categ_id;
+
     public Product () {
 
     };
 
-    public Product(Integer id, String name) {
+    public Product(Integer id, String name, String img_url,
+                   Float regular_price, Float discount_price,
+                   String description, Integer categ_id) {
         this.id = id;
         this.name = name;
     }
 
     public Integer getID() {return id;}
+    public Integer getCategID() {return categ_id;}
     public String getName() {
         return name;
     }
     public String getImageThumbnailUrl() {
         return img_url;
+    }
+    public String getDescription() {
+        return description;
     }
 
     public Float getSalePrice() {

@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view_authen">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home_item"
             android:icon="@android:drawable/ic_menu_mapmode"
             android:title="Home"/>
         <item
-            android:id="@+id/nav_login_item"
-            android:icon="@android:drawable/ic_menu_send"
-            android:title="Login"/>
+            android:id="@+id/nav_authen_detail_item"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Account Management" />
         <item
-            android:id="@+id/nav_signup_item"
-            android:title="Sign Up"
-            android:icon="@android:drawable/ic_menu_myplaces" />
+            android:id="@+id/nav_authen_tracking_item"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tracking order" />
         <item
-            android:id="@+id/nav_service_item"
+            android:id="@+id/nav_authen_like_item"
+            android:icon="@drawable/ic_heart_shape"
+            android:title="Favourites" />
+        <item
+            android:id="@+id/nav_authen_service_item"
             android:icon="@android:drawable/ic_menu_call"
             android:title="Customer Service" />
+        <item
+            android:id="@+id/nav_authen_logout_item"
+            android:icon="@android:drawable/ic_menu_revert"
+            android:title="Log out"/>
     </group>
 
     <item android:title="Product Category">

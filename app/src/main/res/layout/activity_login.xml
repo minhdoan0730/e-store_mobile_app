@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/login_cover"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:src="@drawable/cover"
         android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
@@ -20,7 +20,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
         app:tabSelectedTextColor="@color/colorAccent"
         app:tabTextColor="@color/colorPrimary">

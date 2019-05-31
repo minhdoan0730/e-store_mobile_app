@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:background="@android:color/white"/>
+        android:background="@color/viewBg"/>
 
     <LinearLayout
         android:layout_below="@+id/shopping_cart_content"

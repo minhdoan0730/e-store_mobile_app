@@ -133,6 +133,7 @@
                     android:textSize="15sp"
                     android:layout_marginRight="5dp"/>
             </TableRow> -->
+
             <TableRow
                 android:background="@android:color/white"
                 android:padding="10dp">
@@ -140,27 +141,128 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Description"
+                    android:layout_marginLeft="20dp"
                     android:textColor="@android:color/tertiary_text_dark"
                     android:textSize="17sp"
-                    android:layout_marginRight="5dp"
-                    android:textStyle="italic|bold"
+                    android:layout_marginRight="20dp"
+                    android:textStyle="bold"
                     />
             </TableRow>
-
-            <!-- Recommendation -->
             <TableRow
-                android:layout_marginBottom="10dp"
                 android:background="@android:color/white"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:layout_marginBottom="10dp"
+                android:minHeight="65dp">
                 <TextView
                     android:id="@+id/txt_product_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sadsakdjsakdjkajdksajdlkajdlksajdksajdlksajdlkjsadlkjsaldkadlksajdld"
+                    android:layout_marginLeft="20dp"
+                    android:text="sadsakdjsakdjkajdksajdlkajdlksa    jdksajdlksajdlkjsadlkjsaldkadlksajdld    321321321312312
+213112321312321   3213213213213131232131231231231      312312"
                     android:textColor="@android:color/tertiary_text_dark"
                     android:textSize="15sp"
-                    android:layout_marginRight="5dp"/>
+                    android:inputType="textMultiLine"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"/>
             </TableRow>
+            <!-- End Description -->
+
+            <!-- Shipping and payment -->
+            <TableRow
+                android:background="@android:color/white"
+                android:padding="10dp"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Shipping"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Standard Shipping from 1-4 day (1.5$)"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Freeship for the order with total larger than 20$!"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@android:color/holo_orange_dark"
+                        android:textSize="15sp"
+                        android:textStyle="italic"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:background="@android:color/white"
+                android:padding="10dp"
+                android:weightSum="1"
+                android:layout_marginTop="1dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Service"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Cash on Delivery"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- 7 days in Product Reserved!"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@android:color/holo_orange_dark"
+                        android:textSize="15sp"
+                        android:textStyle="italic"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </TableRow>
+            <!-- End sipping and payment -->
+
+            <!-- Recommendation -->
             <TableRow
                 android:background="@android:color/white"
                 android:layout_marginTop="10dp">
@@ -168,10 +270,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Recommend for you"
+                    android:text="RECOMMEND FOR YOU"
                     android:textSize="20sp"
-                    android:padding="5sp"
-                    android:textStyle="italic|bold"/>
+                    android:padding="5sp" />
             </TableRow>
 
             <RelativeLayout android:layout_below="@+id/tbl_product_information"
@@ -180,9 +281,29 @@
                     android:id="@+id/rv_product_items"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:padding="10dp" />
+                    android:clipToPadding="false" />
             </RelativeLayout>
+
+            <!--<TableRow-->
+                <!--android:background="@android:color/white"-->
+                <!--android:layout_marginTop="10dp">-->
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="PEOPLE ALSO VIEWED"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:padding="5sp" />-->
+            <!--</TableRow>-->
+
+            <!--<RelativeLayout android:layout_below="@+id/tbl_product_information"-->
+                <!--android:background="@android:color/white">-->
+                <!--<android.support.v7.widget.RecyclerView-->
+                    <!--android:id="@+id/rv_product_with_cagegory"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:clipToPadding="false" />-->
+            <!--</RelativeLayout>-->
         </TableLayout>
     </LinearLayout>
 </ScrollView>
