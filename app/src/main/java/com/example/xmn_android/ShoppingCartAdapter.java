@@ -34,8 +34,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtProductName, txtProductPrice, txtProductQty, txtSubtotal;
-        public ImageView imgProductThumbnail;
+        public TextView txtProductName, txtProductPrice, txtProductQty, txtSubtotal, txtTotal, txtTax;
+        public ImageView imgProductThumbnail, btnClickToRemove;
         public ImageButton btnAddCart;
 
         public MyViewHolder(View itemView) {
@@ -44,7 +44,9 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             imgProductThumbnail = (ImageView) itemView.findViewById(R.id.img_checkout_product_thumbnail);
             txtProductPrice = (TextView) itemView.findViewById(R.id.txt_checkout_product_price);
             txtProductQty = (TextView) itemView.findViewById(R.id.txt_checkout_qty);
-//            txtSubtotal = (TextView) itemView.findViewById(R.id.txt_checkout_subtotal);
+            txtSubtotal = (TextView) itemView.findViewById(R.id.txt_checkout_subtotal);
+            btnClickToRemove = (ImageView) itemView.findViewById(R.id.img_click_to_remove_cart_line);
+
         }
     }
 
@@ -57,17 +59,30 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     @Override
     public void onBindViewHolder(final ShoppingCartAdapter.MyViewHolder holder, int position) {
         final ShoppingCartEntry cartEntry = shoppingList.get(position);
-        Float unitPrice = cartEntry.getProduct().getSalePrice();
+        Float unitPrice = 0.0f;
+        if (cartEntry.getProduct() != null) {
+            unitPrice  = cartEntry.getProduct().getSalePrice();
+        }
+
         holder.txtProductName.setText(cartEntry.getProduct().getName());
         holder.txtProductPrice.setText(unitPrice.toString() + '$');
         holder.txtProductQty.setText("x " + String.valueOf(cartEntry.getQuantity()));
 
         Float subTotal = cartEntry.getQuantity() * unitPrice;
-//        holder.txtSubtotal.setText(subTotal.toString()+ '$');
 
         String imgURL = RetrofitClientAPI.getSeverBaseURL() + cartEntry.getProduct().getImageThumbnailUrl();
         Glide.with(holder.imgProductThumbnail.getContext())
                 .load(imgURL).into(holder.imgProductThumbnail);
+        holder.btnClickToRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // remove to cart
+                shoppingList.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), shoppingList.size());
+                mListener.onchangeCartItem(shoppingList);
+            }
+        });
     }
 
     @Override
@@ -77,5 +92,6 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     public static interface AdapterCallback {
         void updateBadgeCount();
+        void onchangeCartItem(ArrayList<ShoppingCartEntry> shoppingList);
     }
 }

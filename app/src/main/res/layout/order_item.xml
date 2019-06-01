@@ -61,18 +61,19 @@
             android:id="@+id/txt_checkout_qty"
             android:textStyle="bold"
             android:text="1"/>
-        <!--<TextView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="20"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:gravity="center"-->
-            <!--android:textSize="17sp"-->
-            <!--android:textStyle="bold"-->
-            <!--android:id="@+id/txt_checkout_subtotal"-->
-            <!--android:text="1"/>-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:id="@+id/txt_checkout_subtotal" />
     </LinearLayout>
     <ImageView
+        android:id="@+id/img_click_to_remove_cart_line"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="right|top"

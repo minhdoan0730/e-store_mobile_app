@@ -48,7 +48,14 @@ public class Product {
     }
 
     public Float getSalePrice() {
-        Float price = (regular_price - discount_price);
+        Float price = 0.0f;
+        if (discount_price == null) {
+            discount_price = 0.0f;
+        }
+        if (regular_price == null) {
+            regular_price = 0.0f;
+        }
+        price = regular_price - discount_price;
         return price;
     }
 

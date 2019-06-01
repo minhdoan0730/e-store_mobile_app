@@ -26,36 +26,75 @@
         android:clipToPadding="false"
         android:background="@color/viewBg"/>
 
+    <android.support.v4.widget.Space
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="?android:attr/listDivider"/>
+
     <LinearLayout
         android:layout_below="@+id/shopping_cart_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="@dimen/card_product_margin">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Tax"
-            android:textSize="20sp"></TextView>
-        <TextView
-            android:layout_width="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Tax"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/txt_tax"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Tax Amount"
+                android:textSize="20sp"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Total"
-            android:textSize="20sp"></TextView>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Total"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/txt_total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Total Amount"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_red_light"></TextView>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp">
         <Button
+            android:id="@+id/btn_proceed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Proceed to Checkout"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorButton"
             android:textSize="25sp"
             android:textColor="@android:color/white"
             android:textStyle="bold"></Button>

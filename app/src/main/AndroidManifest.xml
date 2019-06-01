@@ -28,6 +28,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:label="Your Shopping Cart" android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:label="Order Information" android:name=".OrderProceedActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

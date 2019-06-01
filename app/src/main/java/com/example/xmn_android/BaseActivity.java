@@ -55,6 +55,7 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     protected void onResume() {
         super.onResume();
         setupNavDrawer();
+        setupBadge();
     }
 
     @Override
@@ -191,17 +192,33 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
 
         mCartCounter = (TextView) badgeLayout.findViewById(R.id.cart_badge);
         setupBadge();
+
+        final MenuItem shoppingCartAction = menu.findItem(R.id.shopping_cart);
+        shoppingCartAction.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+                getApplicationContext().startActivity(intent);
+            }
+        });
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (item.getItemId()){
+        switch (id){
             case R.id.search:{
                 return true;
             }
             case R.id.shopping_cart:{
+                item.getActionView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+                        getApplicationContext().startActivity(intent);
+                    }
+                });
                 return true;
             }
             default:{
@@ -258,8 +275,9 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     }
 
     protected Boolean isAuthen() {
-        int user_token = Paper.book().read("user_token", 0);
-        if (user_token != 0) {
+        User user_info = Paper.book().read("user_info", null);
+        if (user_info != null) {
+            Toast.makeText(this, "NOT NULL", Toast.LENGTH_LONG);
             return true;
         }
         return false;

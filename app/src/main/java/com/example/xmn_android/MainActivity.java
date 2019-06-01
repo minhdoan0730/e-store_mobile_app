@@ -1,7 +1,10 @@
 package com.example.xmn_android;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -62,6 +65,15 @@ public class MainActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+                getApplicationContext().startActivity(intent);
+            }
+        });
     }
 
     private void generateProductDataList(List<Product> productList) {

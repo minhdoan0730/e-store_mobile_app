@@ -53,7 +53,6 @@
                             android:id="@+id/txt_old_sale_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="50.000$"
                             android:textColor="@android:color/tertiary_text_dark"
                             android:textSize="17sp"
                             android:background="@drawable/strike_through"/>
