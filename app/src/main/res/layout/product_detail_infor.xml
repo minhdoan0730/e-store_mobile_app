@@ -274,7 +274,9 @@
                     android:padding="5sp" />
             </TableRow>
 
-            <RelativeLayout android:layout_below="@+id/tbl_product_information"
+            <RelativeLayout
+                android:id="@+id/recommend_product"
+                android:layout_below="@+id/tbl_product_information"
                 android:background="@android:color/white">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_product_items"
@@ -283,26 +285,28 @@
                     android:clipToPadding="false" />
             </RelativeLayout>
 
-            <!--<TableRow-->
-                <!--android:background="@android:color/white"-->
-                <!--android:layout_marginTop="10dp">-->
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="center"-->
-                    <!--android:text="PEOPLE ALSO VIEWED"-->
-                    <!--android:textSize="20sp"-->
-                    <!--android:padding="5sp" />-->
-            <!--</TableRow>-->
-
-            <!--<RelativeLayout android:layout_below="@+id/tbl_product_information"-->
-                <!--android:background="@android:color/white">-->
-                <!--<android.support.v7.widget.RecyclerView-->
-                    <!--android:id="@+id/rv_product_with_cagegory"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:clipToPadding="false" />-->
-            <!--</RelativeLayout>-->
+            <TableRow
+                android:background="@android:color/white"
+                android:layout_marginTop="10dp">
+            </TableRow>
         </TableLayout>
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/recommend_product"-->
+            <!--android:background="@android:color/white">-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:text="PEOPLE ALSO VIEWED"-->
+                <!--android:textSize="20sp"-->
+                <!--android:padding="5sp" />-->
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv_product_with_cagegory"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:clipToPadding="false" />-->
+        <!--</RelativeLayout>-->
     </LinearLayout>
 </ScrollView>

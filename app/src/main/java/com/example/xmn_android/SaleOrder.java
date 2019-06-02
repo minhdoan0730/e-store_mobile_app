@@ -17,6 +17,8 @@ public class SaleOrder {
     private String address;
     @SerializedName("phone")
     private String phone;
+    @SerializedName("state")
+    private String state;
 
     public SaleOrder(Integer user_id, Date order_date,float total, String phone, String address) {
         this.user_id = user_id;
@@ -28,5 +30,22 @@ public class SaleOrder {
         if (address != null && address.isEmpty() == false) {
             this.address = address;
         }
+    }
+
+    public Integer getID () {
+        return id;
+    }
+
+    public Integer getUserID () {
+        return user_id;
+    }
+    public String getOrderDate () {
+        return order_date.toString();
+    }
+    public float getTotal() {
+        return total;
+    }
+    public String getState() {
+        return state;
     }
 }

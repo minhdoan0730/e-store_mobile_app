@@ -31,8 +31,8 @@ public class ProductPageActivity extends BaseActivity implements ProductAdapter.
     private ProgressDialog dialog;
     private List<Product> mRecommendedProducts = new ArrayList<>();
     private List<Product> mProductWithCategoy = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private ProductAdapter mAdapter;
+    private RecyclerView recyclerView,  recyclerView2;
+    private ProductAdapter mAdapter, mAdapter2;
     private Button btnBuyNow, btnAddCart;
     private TextView txtProductName, txtProductSalePrice,
             txtProductRegularPrice, txtProductDescription, txtDownPercent;
@@ -57,7 +57,6 @@ public class ProductPageActivity extends BaseActivity implements ProductAdapter.
 
         loadingProductDetail(productID);
         getRecommendedProducts(nameSearchRecommend);
-//        getWithCategoryProducts(categoryID);
 
         btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +147,7 @@ public class ProductPageActivity extends BaseActivity implements ProductAdapter.
         recyclerView.setAdapter(mAdapter);
     }
 
-    //    private void getWithCategoryProducts(Integer categoryID) {
+//        private void getWithCategoryProducts(Integer categoryID) {
 //        if (categoryID > 0) {
 //            Call<List<Product>> call = service.listProductWithCategory(categoryID);
 //            call.enqueue(new Callback<List<Product>>() {
@@ -171,11 +170,11 @@ public class ProductPageActivity extends BaseActivity implements ProductAdapter.
 //    }
 //
 //    private void loadingWithCategoryProducts(List<Product> withCategoryProduct) {
-//        recyclerView = (RecyclerView) findViewById(R.id.rv_product_with_cagegory);
-//        mAdapter = new ProductAdapter(ProductPageActivity.this, withCategoryProduct, this);
+//        recyclerView2 = (RecyclerView) findViewById(R.id.rv_product_with_cagegory);
+//        mAdapter2 = new ProductAdapter(ProductPageActivity.this, withCategoryProduct, this);
 //
-//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-//        recyclerView.setLayoutManager(mLayoutManager);
+//        RecyclerView.LayoutManager mLayoutManager2 = new GridLayoutManager(this, 3);
+//        recyclerView.setLayoutManager(mLayoutManager2);
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        recyclerView.setAdapter(mAdapter);
 //    }

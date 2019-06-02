@@ -19,8 +19,11 @@ public interface apiService {
     @GET("api/products")
     Call<List<Product>> listProduct();
 
-    @GET("api/products/{categ_id}")
+    @GET("api/products")
     Call<List<Product>> listProductWithCategory(@Query("categ_id") Integer categID);
+
+    @GET("api/products")
+    Call<List<Product>> searchProduct(@Query("search_key") String search_key);
 
     @GET("api/products/{product_id}")
     Call<Product> getProductDetail(@Path("product_id") Integer productID);
@@ -54,4 +57,7 @@ public interface apiService {
             @Field("phone") String phone,
             @Field("address") String address,
             @Field("order_lines") String order_lines);
+
+    @GET("api/sale_order")
+    Call<List<SaleOrder>> getTrackingOrder(@Query("user_id") Integer userID);
 }

@@ -1,0 +1,58 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/order_item_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:layout_marginTop="1dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="left"
+                android:textSize="25sp"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:id="@+id/text_tracking_order"
+                android:inputType="textMultiLine"
+                android:textStyle="bold"
+                android:text="NNsdasdsakdjsada" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:textColor="@android:color/holo_red_light"
+                android:id="@+id/text_total"
+                android:text="1212 $"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:id="@+id/text_state"
+                android:textStyle="bold"
+                android:text="On Shipping"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

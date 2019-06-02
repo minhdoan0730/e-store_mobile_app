@@ -30,6 +30,16 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:label="Order Information" android:name=".OrderProceedActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:label="Order Information" android:name=".TrackingOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:label="Searching" android:name=".SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

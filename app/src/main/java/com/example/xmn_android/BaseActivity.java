@@ -1,6 +1,9 @@
 package com.example.xmn_android;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 
@@ -25,6 +29,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -172,6 +178,9 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
                             intent.putExtra("SIGNUP", 1);
                             startActivity(intent);
                             break;
+                        case R.id.nav_authen_tracking_item:
+                            startActivity(new Intent(getApplicationContext(), TrackingOrderActivity.class));
+                            break;
                         case R.id.nav_authen_logout_item:
                             Paper.book().delete("user_info");
                             Toast.makeText(getApplicationContext(), "Logout successfully!", Toast.LENGTH_SHORT).show();
@@ -199,6 +208,24 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
                 getApplicationContext().startActivity(intent);
+            }
+        });
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchActivity.class)));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
         return true;
