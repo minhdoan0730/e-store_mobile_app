@@ -102,8 +102,7 @@ android:orientation="vertical" >
     <TableRow
         android:padding="10dp"
         android:layout_marginTop="25dp"
-        android:background="@android:color/white"
-        android:layout_weightSum="1">
+        android:background="@android:color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,7 +124,7 @@ android:orientation="vertical" >
                 <EditText android:id="@+id/input_delivery_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:layout_marginLeft="20dp"
                     android:hint="Your delivery adress"
                     android:textSize="20dp"/>
@@ -135,7 +134,7 @@ android:orientation="vertical" >
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/input_phone"
+                <EditText android:id="@+id/input_delivery_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"

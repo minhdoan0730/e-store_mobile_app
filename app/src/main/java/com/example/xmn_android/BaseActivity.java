@@ -110,7 +110,7 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
             navigationView.removeHeaderView(navigationView.getHeaderView(0));
         }
         navigationView.getMenu().setGroupVisible(0, false);
-        User user_token = Paper.book().read("user_info", new User());
+        User user_token = Paper.book().read("user_info", null);
         if (user_token != null) {
             final View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_authen);
             navigationView.inflateMenu(R.menu.drawer_menu_authen);
@@ -118,12 +118,12 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
             TextView txtUserName = (TextView) headerLayout.findViewById(R.id.txt_user_name);
             TextView txtUserEmail = (TextView) headerLayout.findViewById(R.id.txt_user_email);
             txtUserName.setText(user_token.getName());
-            txtUserName.setText(user_token.getEmail());
+            txtUserEmail.setText(user_token.getEmail());
         }
         else {
-//            setupNavDrawerToMain();
-            navigationView.inflateHeaderView(R.layout.nav_header_main);
-            navigationView.inflateMenu(R.menu.drawer_menu);
+            setupNavDrawerToMain();
+//            navigationView.inflateHeaderView(R.layout.nav_header_main);
+//            navigationView.inflateMenu(R.menu.drawer_menu);
         }
 
         navigationView.setNavigationItemSelectedListener(navigationViewListener);
@@ -173,7 +173,7 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
                             startActivity(intent);
                             break;
                         case R.id.nav_authen_logout_item:
-                            Paper.book().delete("user_token");
+                            Paper.book().delete("user_info");
                             Toast.makeText(getApplicationContext(), "Logout successfully!", Toast.LENGTH_SHORT).show();
                             setupNavDrawerToMain();
                             break;
@@ -245,6 +245,7 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     }
 
     protected void setupBadge() {
+        ShoppingCartHelper.saveBadgeCount();
         if (mCartCounter != null) {
             badgeCount = Paper.book().read("badge_count", 0);
             if (badgeCount == 0) {
@@ -277,7 +278,6 @@ public class BaseActivity extends AppCompatActivity implements ProductAdapter.Ad
     protected Boolean isAuthen() {
         User user_info = Paper.book().read("user_info", null);
         if (user_info != null) {
-            Toast.makeText(this, "NOT NULL", Toast.LENGTH_LONG);
             return true;
         }
         return false;

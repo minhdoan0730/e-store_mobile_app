@@ -1,6 +1,8 @@
 package com.example.xmn_android;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,9 +29,9 @@ public interface apiService {
     Call<List<Product>> recommendProducts(@Query("search_key") String productName);
 
     @GET("api/account/{account_id}")
-    Call<User> getAccount(@Path("account_id") Integer accountID);
+    Call<User> getAccount(@Path("account_id") Integer account_id);
 
-    @POST("api/account")
+    @POST("api/signup")
     @FormUrlEncoded
     Call<Result> signupAccount(
             @Field("name") String name,
@@ -42,4 +44,14 @@ public interface apiService {
     Call<Result> login(
             @Field("email") String email,
             @Field("password") String password);
+
+    @POST("api/sale_order")
+    @FormUrlEncoded
+    Call<Result> order(
+            @Field("user_id") Integer user_id,
+            @Field("total") float total,
+            @Field("order_date") Date order_date,
+            @Field("phone") String phone,
+            @Field("address") String address,
+            @Field("order_lines") String order_lines);
 }

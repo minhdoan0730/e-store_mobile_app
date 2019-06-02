@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.paperdb.Paper;
@@ -30,6 +31,8 @@ public class CheckoutActivity extends BaseActivity implements ShoppingCartAdapte
     private Button btnProceed;
     private ArrayList<ShoppingCartEntry> mShoppingCartData = new ArrayList<ShoppingCartEntry>();
     apiService service = RetrofitClientAPI.getRetrofitInstance().create(apiService.class);
+    private float total = 0.0f;
+    private float tax = 0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,9 @@ public class CheckoutActivity extends BaseActivity implements ShoppingCartAdapte
             @Override
             public void onClick(View v) {
             if (isAuthen()) {
-                startActivity(new Intent(getApplicationContext(), OrderProceedActivity.class));
+                Intent intent = new Intent(getApplicationContext(), OrderProceedActivity.class);
+                intent.putExtra("total", total);
+                startActivity(intent);
             } else {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
@@ -66,7 +71,7 @@ public class CheckoutActivity extends BaseActivity implements ShoppingCartAdapte
     }
 
     private void calculateTaxAndTotal(ArrayList<ShoppingCartEntry> shoppingCartdata) {
-        Float amountUntaxed = 0.0f;
+        float amountUntaxed = 0.0f;
         boolean res = shoppingCartdata.isEmpty();
         if (shoppingCartdata.isEmpty() == false) {
             for (int i = 0; i < shoppingCartdata.size(); i++ ) {
@@ -74,10 +79,10 @@ public class CheckoutActivity extends BaseActivity implements ShoppingCartAdapte
                 amountUntaxed += (entry.getProduct().getSalePrice() * entry.getQuantity());
             }
         }
-        Float tax = amountUntaxed * 0.1f;
-        Float total = amountUntaxed + tax;
-        txtTax.setText(tax.toString() + " $");
-        txtTotal.setText(total.toString() + " $");
+        tax = amountUntaxed * 0.1f;
+        total = amountUntaxed + tax;
+        txtTax.setText(String.valueOf(tax) + " $");
+        txtTotal.setText(toString().valueOf(total) + " $");
     }
 
     @Override

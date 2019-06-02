@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,8 +81,7 @@ public class SignupFragment extends Fragment {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 Result result = response.body();
-                if (result != null ){
-                    Toast.makeText(getActivity().getApplicationContext(), result.getMessage(), Toast.LENGTH_LONG).show();
+                if (result != null){
                     new android.os.Handler().postDelayed(
                         new Runnable() {
                             public void run() {
@@ -92,6 +92,8 @@ public class SignupFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(getActivity().getApplicationContext(), "AHIHIHI đồ chó!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    onSignupFailed();
                 }
             }
 

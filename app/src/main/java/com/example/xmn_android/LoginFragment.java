@@ -81,28 +81,30 @@ public class LoginFragment extends Fragment {
                                  }, 2000);
                      }
                      else {
-                         Paper.init(getContext());
                          apiService service = RetrofitClientAPI.getRetrofitInstance().create(apiService.class);
                          Call<User> callUser = service.getAccount( result.getReturnId());
                          callUser.enqueue(new Callback<User>() {
                              @Override
                              public void onResponse(Call<User> call, Response<User> response) {
-                                 User userAccount = response.body();
-                                 Paper.book().write("user_info", userAccount);
+                                 Paper.book().delete("user_info");
+                                 Paper.book().read("user_info", new User());
+                                 User respone = response.body();
+                                 User user = new User(respone.getID(), respone.getEmail(), respone.getName(), respone.getAddress(), respone.getPhone());
+                                 Paper.book().write("user_info", user);
+                                 new android.os.Handler().postDelayed(
+                                         new Runnable() {
+                                             public void run() {
+                                                 progressDialog.dismiss();
+                                                 onLoginSuccess();
+                                             }
+                                         }, 2000);
                              }
 
                              @Override
                              public void onFailure(Call<User> call, Throwable t) {
-
+                                onLoginFailed("in authenicating");
                              }
                          });
-                         new android.os.Handler().postDelayed(
-                             new Runnable() {
-                                 public void run() {
-                                     progressDialog.dismiss();
-                                     onLoginSuccess();
-                                 }
-                             }, 2000);
                      }
 
                  } else {
