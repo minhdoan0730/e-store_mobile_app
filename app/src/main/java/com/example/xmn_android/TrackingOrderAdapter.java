@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtOrderName, txtOrderTotal, txtOrderStatus;
+        public TextView txtOrderName, txtOrderTotal, txtOrderStatus, txtAddress;
         public ImageView imgProductThumbnail;
         public ImageButton btnAddCart;
 
@@ -46,6 +48,7 @@ public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdap
             txtOrderName = (TextView) itemView.findViewById(R.id.text_tracking_order);
             txtOrderTotal = (TextView) itemView.findViewById(R.id.text_total);
             txtOrderStatus = (TextView) itemView.findViewById(R.id.text_state);
+            txtAddress = (TextView) itemView.findViewById(R.id.text_address);
         }
     }
 
@@ -59,8 +62,9 @@ public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdap
     public void onBindViewHolder(final TrackingOrderAdapter.MyViewHolder holder, int position) {
         final SaleOrder order = saleOrderList.get(position);
         holder.txtOrderStatus.setText(order.getState());
-        holder.txtOrderName.setText("SO00" + order.getID().toString());
+        holder.txtOrderName.setText("SO00" + order.getID().toString() + " (" + order.getOrderDate() + ")");
         holder.txtOrderStatus.setText(order.getState());
+        holder.txtAddress.setText(order.getAddress());
     }
 
     @Override

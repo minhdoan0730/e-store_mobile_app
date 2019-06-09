@@ -53,7 +53,7 @@ public interface apiService {
     Call<Result> order(
             @Field("user_id") Integer user_id,
             @Field("total") float total,
-            @Field("order_date") Date order_date,
+            @Field("order_date") String order_date,
             @Field("phone") String phone,
             @Field("address") String address,
             @Field("order_lines") String order_lines);

@@ -10,7 +10,7 @@ public class SaleOrder {
     @SerializedName("user_id")
     private Integer user_id;
     @SerializedName("order_date")
-    private Date order_date;
+    private String order_date;
     @SerializedName("total")
     private float total;
     @SerializedName("address")
@@ -20,7 +20,7 @@ public class SaleOrder {
     @SerializedName("state")
     private String state;
 
-    public SaleOrder(Integer user_id, Date order_date,float total, String phone, String address) {
+    public SaleOrder(Integer user_id, String order_date,float total, String phone, String address) {
         this.user_id = user_id;
         this.order_date = order_date;
         this.total = total;
@@ -40,12 +40,15 @@ public class SaleOrder {
         return user_id;
     }
     public String getOrderDate () {
-        return order_date.toString();
+        return order_date;
     }
     public float getTotal() {
         return total;
     }
     public String getState() {
         return state;
+    }
+    public String getAddress() {
+        return address;
     }
 }

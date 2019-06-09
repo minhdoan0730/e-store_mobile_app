@@ -23,19 +23,27 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:gravity="left"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textColor="@android:color/tertiary_text_dark"
                 android:id="@+id/text_tracking_order"
                 android:inputType="textMultiLine"
-                android:textStyle="bold"
                 android:text="NNsdasdsakdjsada" />
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textColor="@android:color/holo_red_light"
                 android:id="@+id/text_total"
+                android:text="1212 $"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:textStyle="italic"
+                android:id="@+id/text_address"
                 android:text="1212 $"/>
         </LinearLayout>
         <LinearLayout
@@ -49,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center_vertical"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:id="@+id/text_state"
                 android:textStyle="bold"
                 android:text="On Shipping"/>

@@ -45,11 +45,6 @@ public class SearchActivity extends BaseActivity{
         recyclerView.setAdapter(mAdapter);
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
-
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);

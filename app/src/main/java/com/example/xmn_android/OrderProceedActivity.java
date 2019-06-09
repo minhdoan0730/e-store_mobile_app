@@ -119,7 +119,7 @@ public class OrderProceedActivity extends BaseActivity {
         String  order_line_gson = new Gson().toJson(saleOrderLines);
 
         apiService service = RetrofitClientAPI.getRetrofitInstance().create(apiService.class);
-        Call<Result> call = service.order(current_user.getID(), total, order_date, phone, address, order_line_gson);
+        Call<Result> call = service.order(current_user.getID(), total, order_date.toString(), phone, address, order_line_gson);
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {

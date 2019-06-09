@@ -1,14 +1,19 @@
 package com.example.xmn_android;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 import android.widget.ImageView;
 import android.widget.Button;
@@ -71,7 +76,7 @@ public class ProductPageActivity extends BaseActivity implements ProductAdapter.
             @Override
             public void onClick(View v) {
                 dialog.setMessage("Adding to cart!");
-                addToCart(productID, 1);
+                showAddItemDialog(productID);
 
             }
         });
@@ -209,5 +214,31 @@ public class ProductPageActivity extends BaseActivity implements ProductAdapter.
                 }
             });
         }
+    }
+
+    private void showAddItemDialog(final Integer productID) {
+        final NumberPicker aNumberPicker = new NumberPicker(getApplicationContext());
+        aNumberPicker.setMaxValue(50);
+        aNumberPicker.setMinValue(1);
+
+        FrameLayout popupView = new FrameLayout(getApplicationContext());
+        popupView.addView(aNumberPicker, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.CENTER));
+
+        new AlertDialog.Builder(this)
+                .setTitle("Add to cart this product")
+                .setMessage("Please add your number you want to order?")
+                .setView(popupView)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Integer numberOrder = aNumberPicker.getValue();
+                        addToCart(productID, numberOrder);
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }
