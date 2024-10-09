@@ -1,7 +1,4 @@
-Before running app, configure RetrofitAPIClient class to your host or url
-```
-private static final String BASE_URL = "http://localhost:5000/api/";
-```
+Video: https://www.youtube.com/watch?v=oii_00o57jo
 
 Running the server and databse by cloning, and following the guide in this repo:
 https://github.com/minhdonal/e-store_restful_server
